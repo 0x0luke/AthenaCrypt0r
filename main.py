@@ -4,6 +4,7 @@ import modify
 import hashlib as h
 import random as r
 import time as t
+import urllib.request
 
 def generateKey():
     keyName = "\x43\x72\x79\x70\x74\x30\x72" #Cypt0r in hexString
@@ -14,12 +15,16 @@ def generateKey():
 
     return encryptionKey #return it to the main function
 
-
 def main(encryptionKey):
 
     key = encryptionKey
 
-    return 0
+    # TODO: encryption
+
+    # clear the key out of memory 
+    for k in range(1000):
+        key = r.randint(1,86400)
+        pass
 
 
 if __name__=="__main__":
