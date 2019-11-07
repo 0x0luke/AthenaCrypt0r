@@ -12,12 +12,10 @@ def getdirs(path):
     """
 
     extensions = [
-        'exe,', 'dll', 'img',  # system files
         'jpg', 'jpeg', 'bmp', 'gif', 'png', 'svg', 'psd', 'raw', # images
         'mp3','mp4', 'm4a', 'aac','ogg','flac', 'wav', 'wma' # music and sound
         'avi', 'flv', 'm4v', 'mkv', 'mov', 'mpg', 'mpeg', 'wmv', 'swf', '3gp', # Video and movies
         'doc', 'docx', 'xls', 'xlsx', 'ppt','pptx', 'txt' # Productivity 
-        'zip', 'rar',  # Compression formats
     ]
 
     for DirectoryPaths, Directories, files in os.walk(path):
