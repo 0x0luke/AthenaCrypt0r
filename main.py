@@ -8,8 +8,18 @@ import reverseCryptor as rc
 import caeser as ca
 import railfence as rail
 
+def generateKey():	
+    keyName = "\x43\x72\x79\x70\x74\x30\x72" #Secret for keygen	
+    salt = map(ord, keyName) # run KeyName through the ord function, set the value to salt	
+    r.seed(int(t.time()+r.randint(1,1337))) # generate a peusdo random seed for random	
+    key = h.pbkdf2_hmac('sha512', bytes(r.randint(1, 65500)), bytes(salt), r.randint(30000,60000)) # generate the encryption key - SHA512 salted, ran over a random amount of times	
+    encryptionKey = key.hex() # dump the key	
+
+    return encryptionKey #return it to the main function	
+
+
 def main():
-    
+
     if os.name == "nt":
         path = "C:/TestFolder/"
     else:
