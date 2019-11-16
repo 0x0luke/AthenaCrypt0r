@@ -24,4 +24,4 @@ def getdirs(path):
             getExts = absPath.split('.')[-1] # so we get the actual extension path
             if getExts in extensions:
                 print(absPath)
-                return absPath
+                yield absPath

